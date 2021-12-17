@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace socket.process
+namespace WcsAsra.Communication
 {
     public struct MsgBuffer
     {
