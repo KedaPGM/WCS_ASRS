@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using WcsAsra.Enums;
 using WcsAsra.Model;
 
 namespace WcsAsra.Communication
@@ -13,11 +14,11 @@ namespace WcsAsra.Communication
     /// </summary>
     public struct DeviceStatusStruct
     {
-        private byte Head;           //字头  【0x99】
-        private byte direction;      //方向    0是左，1是右
-        private byte row;            //层
-        private byte column;         //位
-        private byte ishave;         //状态
+        public byte Head;           //字头  【0x99】
+        public byte direction;      //方向    0是左，1是右
+        public byte row;            //层
+        public byte column;         //位
+        public byte ishave;         //状态
         public ushort Tail;          //命令字尾【0xFF】
     }
 
@@ -29,6 +30,39 @@ namespace WcsAsra.Communication
         {
             device = new Device();
         }
+
+        public Device GetStatus(byte[] data)
+        {
+            DeviceStatusStruct st = BufferToStruct<DeviceStatusStruct>(data);
+
+            device.Row = st.row;
+            device.Column = st.column;
+            device.IsHave = (DeviceHaveGoodsStatuE)st.ishave;
+
+            return device;
+        }
+
+        ///// <summary>
+        ///// 获取指令  
+        ///// </summary>
+        ///// <param name="devid"></param>
+        ///// <param name="type"></param>
+        ///// <param name="mark"></param>
+        ///// <returns></returns>
+        //internal byte[] GetCmd(string devid, byte mark)
+        //{
+        //    DeviceStatusStruct cmd = new DeviceStatusStruct
+        //    {
+        //        Head = ShiftBytes(SocketConst.CARRIER_CMD_HEAD_KEY),
+        //        DeviceID = byte.Parse(devid),
+        //        Command = (byte)type,
+        //        Value13 = mark,
+        //        Tail = ShiftBytes(SocketConst.TAIL_KEY)
+        //    };
+
+        //    return StructToBuffer(cmd);
+        //}
+
 
     }
 

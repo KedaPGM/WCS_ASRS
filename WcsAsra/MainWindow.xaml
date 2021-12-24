@@ -10,7 +10,7 @@
         Title="智能立体货架展示" 
         ResizeMode="CanResize" MinWidth="800"
         d:DesignHeight="800"  d:DesignWidth="1400" Background="LightGray"
-        Icon="/Resources\apps_dconf.png" Closing="Window_Closing" WindowState="Maximized">
+        Icon="/Resources\apps_dconf.png" Closing="Window_Closing" WindowState="Maximized" Loaded="Window_Loaded">
     <hc:TransitioningContentControl>
         <Grid x:Name="main">
             <Grid.RowDefinitions>

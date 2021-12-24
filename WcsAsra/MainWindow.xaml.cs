@@ -83,8 +83,8 @@ namespace WcsAsra
                     //红灯
                     Border borderred = new Border()
                     {
-                        CornerRadius = new CornerRadius(15),
-                        BorderThickness = new Thickness(1),
+                        //CornerRadius = new CornerRadius(15),
+                        //BorderThickness = new Thickness(1),
                         Width = 30,
                         Height = 30,
                         BorderBrush = new SolidColorBrush(Colors.Transparent),
@@ -96,8 +96,8 @@ namespace WcsAsra
                     //绿灯
                     Border bordergreen = new Border()
                     {
-                        CornerRadius = new CornerRadius(15),
-                        BorderThickness = new Thickness(1),
+                        //CornerRadius = new CornerRadius(15),
+                        //BorderThickness = new Thickness(1),
                         Width = 30,
                         Height = 30,
                         BorderBrush = new SolidColorBrush(Colors.Transparent),
@@ -111,6 +111,7 @@ namespace WcsAsra
                     {
                         Text = $"第{r + 1}层, 第{c + 1}位",
                         Margin = new Thickness(10, 10, 10, 10),
+                        FontSize = 20,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Bottom,
                     };
@@ -135,5 +136,9 @@ namespace WcsAsra
 
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            PubMaster.StartMaster.Start();
+        }
     }
 }

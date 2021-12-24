@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using GalaSoft.MvvmLight;
+using WcsAsra.Enums;
 
 namespace WcsAsra.Model
 {
@@ -14,7 +15,7 @@ namespace WcsAsra.Model
         private byte direction;      //方向    0是左，1是右
         private byte row;            //层
         private byte column;         //位
-        private byte ishave;         //状态
+        private DeviceHaveGoodsStatuE ishave;         //状态
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace WcsAsra.Model
             set => Set(ref column, value);
         }
 
-        public byte IsHave
+        public DeviceHaveGoodsStatuE IsHave
         {
             get => ishave;
             set => Set(ref ishave, value);

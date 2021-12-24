@@ -28,7 +28,7 @@ namespace WcsAsra.Model
 
         public bool IsHave
         {
-            get => ishave;
+            get => ishave = true;
             set => Set(ref ishave, value);
         }
 
