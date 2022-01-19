@@ -14,38 +14,69 @@
     <hc:TransitioningContentControl>
         <Grid x:Name="main">
             <Grid.RowDefinitions>
-                <RowDefinition Height='7*'/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*" Name="MainView"/>
+                <RowDefinition Height="0.3*" Name="footView"/>
+                <RowDefinition Height="0.7*" Name="HorArrowView"/>
+                <RowDefinition Height="2*" Name="TextView"/>
             </Grid.RowDefinitions>
 
             <Grid x:Name="Login" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition x:Name="LeftGrid" Width="4.75*"/>
+                    <ColumnDefinition x:Name="VerArrow" Width="0.5*"/>
+                    <ColumnDefinition x:Name="RightGrid" Width="4.75*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid x:Name="LeftView" Grid.Column="0"/>
-                <Grid x:Name="RightView" Grid.Column="2"/>
-                <Grid x:Name="SeparateView" Grid.Column="1">
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" BorderBrush="Transparent" Margin="0,8" BorderThickness="1"/>
-                </Grid>
+                <Grid x:Name="LeftView" Grid.Column="0" Margin="55,30,0,0"/>
+                <Grid x:Name="VerArrowView" Grid.Column="1" Margin="0,30,0,0"/>
+                <Grid x:Name="RightView" Grid.Column="2"  Margin="0,30,55,0"/>
+                
+                <!--<Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" BorderBrush="Transparent" Width="10" BorderThickness="1"/>-->
+
 
             </Grid>
-            
-            <Grid x:Name="Text" Grid.Row="1">
+
+            <Grid x:Name="foot" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4.75*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="4.75*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Border BorderThickness="6,0,6,0" BorderBrush="Black" Margin="55,0,0,0" Grid.Column="0">
+                    <!--<Separator  BorderBrush="Black" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                </Border>
+
+                <Border BorderThickness="6,0,6,0" BorderBrush="Black" Margin="0,0,55,0" Grid.Column="2">
+                    <!--<Separator  BorderBrush="Black" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                </Border>
+            </Grid>
+
+            <Grid x:Name="HorArrow" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="LeftArrow" Width="4.75*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition x:Name="RightArrow" Width="4.75*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="LeftArroView" Grid.Column="0" Margin="55,0,0,0"/>
+                <Grid x:Name="RightArrowView" Grid.Column="2"  Margin="0,0,55,0"/>
+
+            </Grid>
+
+
+            <Grid x:Name="Text" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Width="30" Height="30" CornerRadius="4" BorderThickness="1" BorderBrush="Transparent" Grid.Column="0">
-                    <Ellipse Width="25" Height="25" Fill="{DynamicResource DarkSuccessBrush}" StrokeThickness="1" Stroke="{DynamicResource BorderBrush}"/>
-                </Border>
+                <TextBlock Text="左货架" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="0" Margin="20"/>
 
-                <TextBlock Text="左" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"/>
-                <TextBlock Text="右" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
-                
+                <Image Source="/Resources/Huo3.png" Margin="5,0,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="50" Width="50" ></Image>
+
+                <TextBlock Text="右货架" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" Margin="20"/>
+
             </Grid>
         </Grid>
     </hc:TransitioningContentControl>

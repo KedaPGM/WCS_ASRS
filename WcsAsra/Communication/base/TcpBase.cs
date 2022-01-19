@@ -40,6 +40,7 @@ namespace WcsAsra.Communication
 
       //  internal SocketMsgMod mMsgMod { set; get; }
         public string mLogname { set; get; }
+        internal Device mdevMsgMod { set; get; }
         protected DeviceBase mDev { set; get; }
         protected int mMinProtLength { set; get; }
         protected bool mSystemStop { set; get; }
@@ -52,12 +53,12 @@ namespace WcsAsra.Communication
 
         protected TcpBase(DeviceBase dev)
         {
-            //_senobj = new object();
+            mDev = dev;//+"-"+dev.id
+
+            _senobj = new object();
             //mMsgMod = new SocketMsgMod();
             //mMsgMod.ID = dev.id;
             //DevID = dev.id;
-
-            //mDev = dev;//+"-"+dev.id
             //mTimer = new MTimer();
         }
 
@@ -136,9 +137,9 @@ namespace WcsAsra.Communication
                 m_Client = new TcpClient();
                 m_Client.BeginConnect(mDev.Ip, mDev.Port, new AsyncCallback(ConnectCallback), null);
 
-                SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接中, null);
+                //SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接中, null);
 
-                Console.WriteLine("连接成功" + DateTime.Now.ToString());
+                //Console.WriteLine("连接成功" + DateTime.Now.ToString());
             }
             catch (Exception e)
             {
@@ -208,7 +209,7 @@ namespace WcsAsra.Communication
 
             m_Connected = false;
 
-            SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接断开, null);
+            //SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接断开, null);
         }
 
         public void Close(string memo = "连接断开")

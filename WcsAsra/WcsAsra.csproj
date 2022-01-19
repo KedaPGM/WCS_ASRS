@@ -8,7 +8,12 @@
 
   <ItemGroup>
     <None Remove="Resources\apps_dconf.png" />
+    <None Remove="Resources\Huo.png" />
+    <None Remove="Resources\Huo2.png" />
+    <None Remove="Resources\Huo3.png" />
     <None Remove="Resources\keda.png" />
+    <None Remove="Resources\LeftHuo.png" />
+    <None Remove="Resources\RightHuo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +27,11 @@
     <Resource Include="Resources\apps_dconf.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Huo2.png" />
+    <Resource Include="Resources\Huo3.png" />
     <Resource Include="Resources\keda.png" />
+    <Resource Include="Resources\LeftHuo.png" />
+    <Resource Include="Resources\RightHuo.png" />
   </ItemGroup>
 
 </Project>

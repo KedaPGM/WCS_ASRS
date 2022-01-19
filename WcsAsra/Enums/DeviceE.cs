@@ -8,6 +8,6 @@ namespace WcsAsra.Enums
     {
         无货 = 0,
         有货 = 1,
-        故障
+        故障 = 2
     }
 }

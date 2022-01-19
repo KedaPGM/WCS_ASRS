@@ -16,24 +16,25 @@ namespace WcsAsra.Communication
         public DeviceTcp(DeviceBase dev) : base(dev)
         {
             DeviceProcesser = new DeviceProcesser();
-            mMinProtLength = 1024;
+            mMinProtLength = Const.BUFFER_SIZE;
         }
 
 
         internal override void SendMsg(SocketMsgTypeE type, SocketConnectStatusE status, Device device)
         {
-            //if (Monitor.TryEnter(mMsgMod, TimeSpan.FromMilliseconds(500)))
+            //if (Monitor.TryEnter( , TimeSpan.FromMilliseconds(500)))
             //{
             //    try
             //    {
-            //        mMsgMod.MsgType = type;
-            //        mMsgMod.ConnStatus = status;
-            //        mMsgMod.Device = device;
-            //        Messenger.Default.Send(mMsgMod, MsgToken.CarrierMsgUpdate);
+            //        mdevMsgMod.MsgType = type;
+            //        mdevMsgMod.ConnStatus = status;
+            //        mdevMsgMod.IDevice = device;
+            //        CarrierMsgUpdate(mdevMsgMod);
+
             //    }
             //    finally
             //    {
-            //        Monitor.Exit(mMsgMod);
+            //        Monitor.Exit(mdevMsgMod);
             //    }
             //}
         }
@@ -64,8 +65,8 @@ namespace WcsAsra.Communication
                     m_ReaderThread.Name = "ClientBaseReceiver";
                     m_ReaderThread.Start();
 
-                    SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接成功, null);
-                    //Console.WriteLine("连接成功:" + DateTime.Now.ToString());
+                    //SendMsg(SocketMsgTypeE.Connection, SocketConnectStatusE.连接成功, null);
+                    Console.WriteLine("连接成功:" + DateTime.Now.ToString());
 
                     //_mLog.Status(true, "连接成功");
                 }
@@ -179,38 +180,43 @@ namespace WcsAsra.Communication
         /// <returns></returns>
         private bool MatchWithProtocol(ref byte[] data)
         {
-            //if (GlobalWcsDataConfig.DebugConfig.LogDeviceReceiver)
-                //_mLog.Cmd(true, "接收：", data);
+            //ushort tail = BitConverter.ToUInt16(ShiftBytes(data, mMinProtLength - 2, 2), 0);
 
             ushort head = BitConverter.ToUInt16(ShiftBytes(data, 0, 2), 0);
             ushort tail = BitConverter.ToUInt16(ShiftBytes(data, mMinProtLength - 2, 2), 0);
 
-            if (head == 0x99 && tail == Const.TAIL_KEY)
+            if (head == Const.HEAD_KEY && tail == Const.TAIL_KEY)
             { 
-                byte[] pdata = new byte[Const.CARRIER_STATUS_SIZE];
-                Array.Copy(data, 0, pdata, 0, Const.CARRIER_STATUS_SIZE);
+                byte[] pdata = new byte[Const.STATUS_SIZE];
+                Array.Copy(data, 0, pdata, 0, Const.STATUS_SIZE);
                 Device device = DeviceProcesser.GetStatus(pdata);
 
-                SendMsg(SocketMsgTypeE.DataReiceive, SocketConnectStatusE.通信正常, device);
-                //if (device.IsUpdate) _mLog.Status(true, device.ToString());
-                //if (device.IsUpdate
-                //    || device.IsCurrentSiteUpdate
-                //    || mTimer.IsTimeOutAndReset(TimerTag.DevTcpDateRefresh, DevID, 2))
-                //{
-                //    SendMsg(SocketMsgTypeE.DataReiceive, SocketConnectStatusE.通信正常, device);
-                //    if (device.IsUpdate) _mLog.Status(true, device.ToString());
-                //}
+                //SendMsg(SocketMsgTypeE.DataReiceive, SocketConnectStatusE.通信正常, device);
 
-                //if (device.IsAlertUpdate)
-                //{
-                //    _mLog.Alert(true, device.AlertToString());
-                //}
-                // remove from data array
-                data = data.Skip(Const.CARRIER_STATUS_SIZE).ToArray();
+                PubMaster.FindMaster.SetView(device);
+                //截取后释放剩余值
+                data = data.Skip(Const.STATUS_SIZE).ToArray();
                 return true;
             }
             return false;
         }
+
+        public ushort byteToHexStr(byte[] bytes)
+        {
+            ushort returnStr = 0;
+            if (bytes != null)
+            {
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    returnStr += bytes[i];
+                }
+            }
+            return returnStr;
+        }
+
+
+
+
 
     }
 }
