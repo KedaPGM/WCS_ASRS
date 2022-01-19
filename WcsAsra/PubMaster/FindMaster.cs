@@ -22,20 +22,26 @@ namespace WcsAsra.PubMaster
 
         public static void SetView(Device item)
         {
-            try
-            {
-                if (item.IsHave == Enums.DeviceHaveGoodsStatuE.有货)
-                {
-                    MainViewModel.PageViewList.Find(c => c.Column == item.Column && c.Row == item.Row && c.Direction == item.Direction).IsHave = true;
-                }
-                else
-                {
-                    MainViewModel.PageViewList.Find(c => c.Column == item.Column && c.Row == item.Row && c.Direction == item.Direction).IsHave = false;
-                }
-            }
-            catch
-            {
+            PageView pageView = null;
 
+            if (item.IsHave == Enums.DeviceHaveGoodsStatuE.有货)
+            {
+                pageView = MainViewModel.PageViewList.Find(c => c.Column == item.Column && c.Row == item.Row && c.Direction == item.Direction);
+
+                if (pageView != null)
+                {
+                    pageView.IsHave = true;
+                }
+
+            }
+            else
+            {
+                pageView = MainViewModel.PageViewList.Find(c => c.Column == item.Column && c.Row == item.Row && c.Direction == item.Direction);
+
+                if (pageView != null)
+                {
+                    pageView.IsHave = false;
+                }
             }
 
             //PageViewList.Add(new PageView

@@ -210,22 +210,11 @@ namespace WcsAsra
                     Grid.SetRow(borderred, r);
                     Grid.SetRow(bordergreen, r);
 
+                    //增加底行显示标识，需按列数执行(默认第一行创建时创建，其他跳过)
 
                     if (r == 0)
                     {
-                        TextBlock texthorblock = new TextBlock()
-                        {
-                            Text = $"{bincol}",
-                            Margin = new Thickness(10, 10, 10, 10),
-                            FontSize = 20,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
-                        };
-
-                        horarrow.Children.Add(texthorblock);
-
-                        Grid.SetColumn(texthorblock, c);
-
+                        CreatTextBlock(horarrow, bincol, c, true);
                     }
 
                     //计算界面对应List变量
@@ -233,28 +222,51 @@ namespace WcsAsra
 
                 }
 
+                //获取中间行显示标识，需按行数执行(默认左边创建时创建，其他跳过)
                 if (Left)
                 {
-                    TextBlock textverblock = new TextBlock()
-                    {
-                        Text = $"{binrow}",
-                        FontSize = 20,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-
-                        //Background = new SolidColorBrush(Colors.HotPink)
-                        //Margin = new Thickness(0, 0, 0, 0),
-                    };
-
-                    verarrow.Children.Add(textverblock);
-
-                    Grid.SetRow(textverblock, r);
+                    CreatTextBlock(verarrow, binrow, r, false);
                 };
 
                 //计算界面对应List变量
                 binrow--;
-                
             }
+
+        }
+
+        /// <summary>
+        /// 创建TextBloce文本作标识
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="show"></param>
+        /// <param name="set"></param>
+        /// <param name="iscolumn"></param>
+        /// <returns></returns>
+        private bool CreatTextBlock(Grid grid, int show, int set, bool iscolumn)
+        {
+            TextBlock textverblock = new TextBlock()
+            {
+                Text = $"{show}",
+                FontSize = 20,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+
+                //Background = new SolidColorBrush(Colors.HotPink)
+                //Margin = new Thickness(0, 0, 0, 0),
+            };
+
+            grid.Children.Add(textverblock);
+
+            if (iscolumn) 
+            {
+                Grid.SetColumn(textverblock, set);
+            }
+            else
+            {
+                Grid.SetRow(textverblock, set);
+            }
+
+            return true;
 
         }
 

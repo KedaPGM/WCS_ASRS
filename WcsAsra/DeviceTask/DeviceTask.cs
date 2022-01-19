@@ -17,6 +17,7 @@ namespace WcsAsra.DeviceTack
         public DeviceBase Device { set; get; } = new DeviceBase();
         public DeviceTcp DevTcp { set; get; }
 
+
         //public bool IsEnable
         //{
         //    get => Device?.enable ?? false;
